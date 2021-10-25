@@ -5,6 +5,7 @@ from scipy.integrate import trapz
 
 def roc_curve(y_test, y_score):
     fprs, tprs, thresholds = [], [], np.unique(y_score)[::-1]
+    thresholds = np.append(np.max(y_score) + 1, thresholds)
     for th in thresholds:
         tprs.append(TPR(probs=y_score, ground=y_test, thresh=th, roc=True))
         fprs.append(FPR(probs=y_score, ground=y_test, thresh=th, roc=True))
@@ -19,12 +20,8 @@ def precision_recall_curve(y_test, y_score):
     precision, recall, thresholds = [], [], np.unique(y_score)[::-1]
     thresholds.sort()
     for th in thresholds:
-        
-        tpr = TPR(probs=y_score, ground=y_test, thresh=th)
-        ppv = PPV(probs=y_score, ground=y_test, thresh=th)
-    
-        recall.append(tpr)
-        precision.append(ppv)
+        recall.append(TPR(probs=y_score, ground=y_test, thresh=th))
+        precision.append(PPV(probs=y_score, ground=y_test, thresh=th))
         
     recall.append(0)
     precision.append(1)

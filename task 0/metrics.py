@@ -13,6 +13,11 @@ def TNRoc(probs, ground, thresh):
 def FNRoc(probs, ground, thresh):
     return np.sum((probs < thresh) & (ground == 1))
 
+
+
+
+
+
 def TP(probs, ground, thresh):
     return np.sum((probs >= thresh) & (ground == 1))
 
