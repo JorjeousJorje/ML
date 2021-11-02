@@ -7,7 +7,7 @@ class PotentialFunctionClassifier:
         self.kernel_func = kernel_func
         self.window_size: float = window_size
     
-    def __set_classifier_parameters(self, train_x: np.ndarray, train_y: np.ndarray) -> None:
+    def set_classifier_parameters(self, train_x: np.ndarray, train_y: np.ndarray) -> None:
         self.train_x: np.ndarray = train_x
         self.train_y: np.ndarray = train_y
         self.charges: np.ndarray = np.zeros_like(train_y, dtype=np.int32)
@@ -21,7 +21,7 @@ class PotentialFunctionClassifier:
     def fit(self, train_x: np.ndarray, train_y: np.ndarray, num_epoch: int=5) -> None:
         assert train_x.shape[0] == train_y.shape[0]
         
-        self.__set_classifier_parameters(train_x, train_y)
+        self.set_classifier_parameters(train_x, train_y)
         
         for _ in range(num_epoch):
             for i, x_sample in enumerate(self.train_x):
