@@ -12,8 +12,12 @@ class PotentialFunctionClassifier:
         self.train_y: np.ndarray = train_y
         self.charges: np.ndarray = np.zeros_like(train_y, dtype=np.int32)
         self.classes: np.ndarray = np.unique(train_y)
+        self.positive_charges_indixes: np.ndarray = None
+        self.charges_count = None
     
     def __get_reference_samples(self) -> None:
+        self.positive_charges_indixes = np.nonzero(self.charges)[0]
+        self.charges_count = len(self.positive_charges_indixes)
         self.train_x: np.ndarray = self.train_x[self.charges > 0]
         self.train_y: np.ndarray = self.train_y[self.charges > 0]
         self.charges: np.ndarray = self.charges[self.charges > 0]
